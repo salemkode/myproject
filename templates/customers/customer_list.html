@@ -1,0 +1,15 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<h1>Welcome</h1>
+<ul>
+    {% for customer in customers %}
+        <li>
+            <a href="update/{{ customer.id }}/">{{ customer.id }} |
+            {{ customer.name }} |
+            {{ customer.phone_number }}</a>
+            <button><a href="delete/{{ customer.id }}/">Delete</a></button>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

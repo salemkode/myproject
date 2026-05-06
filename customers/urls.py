@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import CustomerListView, CustomerCreateView, CustomerDetailView, CustomerUpdateView, DeleteCustomer
 
 urlpatterns = [
-    path('/', admin.site.urls),
+    path('', CustomerCreateView.as_view(), name='customer-create'),
+    path('list/', CustomerListView.as_view(), name='customer-list'),
+    path('list/details/<int:pk>/', CustomerDetailView.as_view(), name='customer-detail'),
+    path('list/update/<int:pk>/', CustomerUpdateView.as_view(), name='customer-detail'),
+    path('list/delete/<int:pk>/', DeleteCustomer.as_view(), name='customer-detail'),
 ]
     
