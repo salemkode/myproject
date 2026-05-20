@@ -1,33 +1,37 @@
-from django.shortcuts import render
-from .models import Customer
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 
-def home(request):
-    return render(request, 'customers/index.html')
+from customers.models import Customer
 
-class CustomerListView(ListView):
+
+class CustomerListView(LoginRequiredMixin, ListView):
     model = Customer
     template_name = 'customers/customer_list.html'
     context_object_name = 'customers'
 
-class CustomerDetailView(DetailView):
+
+class CustomerDetailView(LoginRequiredMixin, DetailView):
     model = Customer
     template_name = 'customers/customer_detail.html'
     context_object_name = 'customer'
 
-class CustomerCreateView(CreateView):
-    model = Customer
-    template_name = 'customers/index.html'
-    fields = ['name', 'phone_number']
-    success_url = "/customers/list"
 
-class CustomerUpdateView(UpdateView):
+class CustomerCreateView(LoginRequiredMixin, CreateView):
     model = Customer
-    template_name = 'customers/customer_update.html'
+    template_name = 'customers/customer_form.html'
     fields = ['name', 'phone_number']
-    success_url = "/customers/list"
+    success_url = "/customers/"
 
-class DeleteCustomer(DeleteView):
+
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
     model = Customer
-    template_name = 'customers/customer_delete.html'
-    success_url = "/customers/list"
+    template_name = 'customers/customer_form.html'
+    fields = ['name', 'phone_number']
+    success_url = "/customers/"
+
+
+class CustomerDeleteView(LoginRequiredMixin, DeleteView):
+    model = Customer
+    template_name = 'customers/customer_confirm_delete.html'
+    success_url = "/customers/"

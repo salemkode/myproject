@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{% if form.instance.id %}Edit Deliverer{% else %}Add Deliverer{% endif %} - Store{% endblock %}
+
+{% block content %}
+<h1>{% if form.instance.id %}Edit Deliverer{% else %}Add Deliverer{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    <a href="{% url 'deliverer-list' %}">Cancel</a>
+</form>
+{% endblock %}

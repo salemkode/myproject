@@ -1,0 +1,31 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Deliverers - Store{% endblock %}
+
+{% block content %}
+<h1>Deliverers</h1>
+
+<p><a href="{% url 'deliverer-create' %}">+ Add Deliverer</a></p>
+
+<table>
+    <thead>
+        <tr><th>Name</th><th>Phone</th><th>Status</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for deliverer in deliverers %}
+        <tr>
+            <td>{{ deliverer.name }}</td>
+            <td>{{ deliverer.phone_number }}</td>
+            <td>{{ deliverer.is_available|yesno:"Available,Busy" }}</td>
+            <td class="actions">
+                <a href="{% url 'deliverer-detail' deliverer.id %}">View</a>
+                <a href="{% url 'deliverer-update' deliverer.id %}">Edit</a>
+                <a href="{% url 'deliverer-delete' deliverer.id %}" class="btn-delete">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No deliverers yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

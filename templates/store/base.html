@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Store{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.9.5.min.css">
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+        nav ul { display: flex; gap: 1rem; list-style: none; padding: 0; margin: 0; align-items: center; }
+        nav ul li a { text-decoration: none; }
+        nav ul.right { margin-left: auto; }
+        .card { border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin: 0.5rem 0; }
+        .card:hover { border-color: #999; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+        .actions a { margin-right: 0.5rem; }
+        .btn-delete { color: #c0392b; }
+        .status { font-weight: bold; padding: 0.2rem 0.5rem; border-radius: 3px; }
+        .status-pending { background: #f39c12; color: white; }
+        .status-preparing { background: #3498db; color: white; }
+        .status-shipped { background: #9b59b6; color: white; }
+        .status-delivered { background: #27ae60; color: white; }
+        footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.9em; color: #888; }
+    </style>
+</head>
+
+<body>
+    <nav style="display: flex;">
+        {% if user.is_authenticated %}
+        <ul>
+            <li><strong><a href="{% url 'home' %}">Store</a></strong></li>
+            <li><a href="{% url 'product-list' %}">Products</a></li>
+            <li><a href="{% url 'order-list' %}">Orders</a></li>
+            <li><a href="{% url 'deliverer-list' %}">Deliverers</a></li>
+            <li><a href="{% url 'customer-list' %}">Customers</a></li>
+        </ul>
+        <ul class="right">
+            <li><span>{{ user.username }}</span></li>
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="right">
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        </ul>
+        {% endif %}
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Store - Delivery Management System</p>
+    </footer>
+</body>
+
+</html>

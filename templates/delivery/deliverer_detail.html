@@ -1,0 +1,15 @@
+{% extends 'store/base.html' %}
+
+{% block title %}{{ deliverer.name }} - Store{% endblock %}
+
+{% block content %}
+<h1>{{ deliverer.name }}</h1>
+<p><strong>Phone:</strong> {{ deliverer.phone_number }}</p>
+<p><strong>Status:</strong> {{ deliverer.is_available|yesno:"Available,Busy" }}</p>
+
+<div class="actions">
+    <a href="{% url 'deliverer-update' deliverer.id %}">Edit</a>
+    <a href="{% url 'deliverer-delete' deliverer.id %}" class="btn-delete">Delete</a>
+    <a href="{% url 'deliverer-list' %}">Back to Deliverers</a>
+</div>
+{% endblock %}

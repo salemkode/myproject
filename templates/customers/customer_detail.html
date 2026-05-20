@@ -1,8 +1,14 @@
-{% extends 'products/base.html' %}
+{% extends 'store/base.html' %}
+
+{% block title %}{{ customer.name }} - Store{% endblock %}
 
 {% block content %}
-<h1>Customer Details</h1>
-<p><strong>ID:</strong> {{ customer.id }}</p>
-<p><strong>Name:</strong> {{ customer.name }}</p>
-<p><strong>Phone Number:</strong> {{ customer.phone_number }}</p>
+<h1>{{ customer.name }}</h1>
+<p><strong>Phone:</strong> {{ customer.phone_number }}</p>
+
+<div class="actions">
+    <a href="{% url 'customer-update' customer.id %}">Edit</a>
+    <a href="{% url 'customer-delete' customer.id %}" class="btn-delete">Delete</a>
+    <a href="{% url 'customer-list' %}">Back to Customers</a>
+</div>
 {% endblock %}

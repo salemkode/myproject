@@ -1,0 +1,14 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Login - Store{% endblock %}
+
+{% block content %}
+<h1>Login</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+    <a href="{% url 'signup' %}">Create Account</a>
+</form>
+{% endblock %}
